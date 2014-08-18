@@ -1,7 +1,9 @@
 var app = angular.module('blogApp', [
 	'ngRoute',
 	//Login
-	'LoginCtrl'
+	'LoginCtrl',
+	//AuthService
+	'AuthSrvc'
 ]);
 app.run(function() {
 

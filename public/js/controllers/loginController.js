@@ -1,7 +1,11 @@
 var login = angular.module('LoginCtrl', []);
 
-login.controller('LoginController', function($scope) {
+login.controller('LoginController', function($scope, Login) {
+
 	$scope.loginSubmit = function() {
-		console.dir($scope.loginData);
+		var auth = Login.auth($scope.loginData);
+		auth.success(function(response) {
+			console.log(response);
+		});
 	}
 });

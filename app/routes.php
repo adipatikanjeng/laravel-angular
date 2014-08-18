@@ -13,7 +13,12 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+return View::make('index'); // will return app/views/index.php
+});
+
+Route::group(array('prefix'=>'/api'),function(){
+  Route::post('login/auth','AuthController@Login');
+  Route::get('login/destroy','AuthController@Logout');  
 });
 
 Route::get('/admin', function()

@@ -12,6 +12,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js"></script>
 <!--angular controllers--><script src="js/controllers/loginController.js"></script>
+<!--angular controllers--><script src="js/services/authServices.js"></script>
+<!--angular controllers--><script src="js/app.js"></script>
 </head>
 
 <body ng-app="blogApp">
