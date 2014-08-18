@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-return View::make('index'); // will return app/views/index.php
+return View::make('home'); // will return app/views/index.php
 });
 
 Route::group(array('prefix'=>'/api'),function(){
@@ -23,5 +23,5 @@ Route::group(array('prefix'=>'/api'),function(){
 
 Route::get('/admin', function()
 {
-  return View::make('admin');
+  return View::make('admin.index');
 });
