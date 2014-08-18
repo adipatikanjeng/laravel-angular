@@ -1,7 +1,7 @@
 <?php
 
 class AuthController extends BaseController{
-	
+
 	public function Login(){
 		if(Auth::attempt(Input::only('username','password'))){
 			return Auth::user();
@@ -9,10 +9,10 @@ class AuthController extends BaseController{
 			return 'invalid username/pass combo';
 		}
 	}
-	
-	public Function Logout(){
+
+	public function Logout(){
 		Auth::logout();
 		return 'logged out';
 	}
-	
+
 }

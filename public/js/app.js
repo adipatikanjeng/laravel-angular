@@ -12,9 +12,15 @@ app.run(function() {
 //This will handle all of our routing
 app.config(function($routeProvider, $locationProvider) {
 
-	$routeProvider.when('/', {
+	$routeProvider.when('/admin', {
 		templateUrl: 'js/templates/login.html',
 		controller: 'LoginController'
+	}).when('/home', {
+		templateUrl: 'js/templates/home.html',
+		controller: 'LoginController'
+	}).
+	otherwise({
+		redirectTo: '/'
 	});
 
 
