@@ -12,7 +12,7 @@ app.run(function() {
 //This will handle all of our routing
 app.config(function($routeProvider, $locationProvider) {
 
-	$routeProvider.when('/admin', {
+	$routeProvider.when('/', {
 		templateUrl: 'js/templates/login.html',
 		controller: 'LoginController'
 	}).when('/home', {
