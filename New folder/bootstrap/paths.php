@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,26 +52,6 @@ return [
 	|
 	*/
 
-	'storage' => __DIR__.'/../storage',
+	'storage' => __DIR__.'/../app/storage',
 
-	/*
-	|--------------------------------------------------------------------------
-	| Generator Paths
-	|--------------------------------------------------------------------------
-	|
-	| These paths are used by the various class generators and other pieces
-	| of the framework that need to determine where to store these types
-	| of classes. Of course, they may be changed to any path you wish.
-	|
-	*/
-
-	'console' => __DIR__.'/../app/Console',
-	'config' => __DIR__.'/../config',
-	'controllers' => __DIR__.'/../app/Http/Controllers',
-	'database' => __DIR__.'/../database',
-	'filters' => __DIR__.'/../app/Http/Filters',
-	'lang' => __DIR__.'/../resources/lang',
-	'providers' => __DIR__.'/../app/Providers',
-	'requests' => __DIR__.'/../app/Http/Requests',
-
-];
+);
