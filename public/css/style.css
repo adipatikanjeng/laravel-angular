@@ -1,0 +1,19 @@
+h1,h2,h3,h4,h5 {
+  text-align: center;
+}
+
+button {
+  margin-bottom: 0px !important;
+}
+
+.books {
+  list-style-type: none;
+}
+
+/*html { 
+  background: url(images/bg.jpg) no-repeat center center fixed;   
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}*/
