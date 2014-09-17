@@ -15,7 +15,6 @@ Route::get('/', function() {
   return View::make('singlepage');
 });
 
-
 Route::group(array('prefik' => "", 'before' => 'auth'), function()
 {
   Route::get('/books', function() {
@@ -51,16 +50,6 @@ Route::post('auth/resetPassword/{token}', 'AuthController@resetPassword');
 Route::get('/auth/status', 'AuthController@status');
 Route::get('/auth/secrets','AuthController@secrets');
 
-
-// App::missing(function($exception)
-// {
-//   return View::make('singlepage');
-// });
-
-Route::any('auth/{all}', function($uri)
-{
-    return View::make('singlepage');
-})->where('auth', '.*');
 
 
 //dd(Auth::viaRemember());

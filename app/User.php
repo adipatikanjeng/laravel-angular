@@ -24,4 +24,14 @@ class User extends Model implements UserContract, RemindableContract {
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+
+	public function setRememberToken($value)
+	{
+		$this->remember_token  = $value;
+	}
+
 }
