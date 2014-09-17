@@ -57,10 +57,10 @@ Route::get('/auth/secrets','AuthController@secrets');
 //   return View::make('singlepage');
 // });
 
-Route::any('auth/{all}', function($uri)
-{
-    return View::make('singlepage');
-})->where('auth', '.*');
+// Route::any('auth/{all}', function($uri)
+// {
+//     return View::make('singlepage');
+// })->where('auth', '.*');
 
 
 //dd(Auth::viaRemember());
