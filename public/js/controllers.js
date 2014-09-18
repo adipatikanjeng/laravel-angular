@@ -84,6 +84,15 @@ app.controller("UserController", function($scope, user, $http, FlashService, $ro
 		});
 	}
 
+	$scope.update = function(id) {
+		$http.post('user/update/' + id, $scope.user).success(function(response) {
+			FlashService.show(response.flash);
+			$route.reload();
+		}).error(function(response) {
+			FlashService.show(response.flash);
+		});
+	}
+
 	$scope.users = user.data;
 
 	$scope.filterFunction = function(element) {

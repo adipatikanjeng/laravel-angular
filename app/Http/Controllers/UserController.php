@@ -85,7 +85,12 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$model = $this->model->find($id);
+		$model->first_name = \Input::json('first_name');
+		$model->last_name = \Input::json('last_name');
+		$model->email = \Input::json('email');
+		$model->password = Hash::make(\Input::json('password'));
+		$model->update();
 	}
 
 	/**
