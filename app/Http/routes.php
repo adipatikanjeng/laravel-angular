@@ -26,7 +26,7 @@ Route::group(array('prefik' => "", 'before' => 'auth'), function()
       ));  
   });
 
-  Route::get('/profile', function() {
+  Route::get('user/profile', function() {
 
     return Response::json(User::find(Auth::user()->id));  
   });
@@ -34,7 +34,9 @@ Route::group(array('prefik' => "", 'before' => 'auth'), function()
   Route::post('user/update/{id}', 'UserController@update');
   Route::post('user/delete/{id}', 'UserController@delete');
 
-  Route::get('/user', 'UserController@lists');
+  Route::get('user/list', 'UserController@lists');
+  Route::post('user/create', 'UserController@create');
+  Route::get('user/show/{id}', 'UserController@show');
 
 
   // return Response::json(array('flash' => 'Session expired'), 401);
@@ -52,10 +54,10 @@ Route::get('/auth/status', 'AuthController@status');
 Route::get('/auth/secrets','AuthController@secrets');
 
 
-// App::missing(function($exception)
-// {
-//   return View::make('singlepage');
-// });
+App::missing(function($exception)
+{
+  return View::make('singlepage');
+});
 
 // Route::any('auth/{all}', function($uri)
 // {

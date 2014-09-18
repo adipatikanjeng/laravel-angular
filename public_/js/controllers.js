@@ -17,7 +17,7 @@ app.controller("LoginController", function($scope, $location, AuthenticationServ
 app.controller("RegisterController", function($http, $scope, $location, FlashService) {
 	$scope.register = function() {
 		$http.post("auth/register", $scope.user).success(function(response) {
-			$location.path('/');
+			$location.path('/login');
 			FlashService.show(response.flash);
 		}).error(function(response) {
 			FlashService.show(response.flash);
@@ -28,7 +28,7 @@ app.controller("RegisterController", function($http, $scope, $location, FlashSer
 app.controller("ResetController", function($http, $scope, $location, FlashService) {
 	$scope.requestReset = function() {
 		$http.post("auth/reset", $scope.user).success(function(response) {
-			$location.path('/');
+			$location.path('/login');
 			FlashService.show(response.flash);
 		}).error(function(response) {
 			FlashService.show(response.flash);
@@ -41,7 +41,7 @@ app.controller("ResetPageController", function($http, $scope, $location, $routeP
 		var data = $scope.user;
 		FlashService.clear;
 		$http.post("auth/resetPassword/" + $routeParams.token, data).success(function(response) {
-			$location.path('/');
+			$location.path('/login');
 			FlashService.show(response.flash);
 		});
 	};
@@ -65,15 +65,6 @@ app.controller("ProfileController", function($scope, profile, $http, FlashServic
 });
 
 app.controller("UserController", function($scope, user, $http, FlashService, $route, $filter) {
-
-	$scope.save = function() {
-		$http.post('user/create', $scope.user).success(function(response) {
-			FlashService.show(response.flash);
-			//$route.reload();
-		}).error(function(response) {
-			FlashService.show(response.flash);
-		});
-	}
 
 	$scope.remove = function(id) {
 		$http.post('user/delete/' + id).success(function(response) {
@@ -146,7 +137,7 @@ app.controller("HomeController", function($http, $scope, $location, Authenticati
 
 	$scope.logout = function() {
 		AuthenticationService.logout().success(function() {
-			$location.path('/');
+			$location.path('/login');
 		});
 	};
 });
@@ -154,7 +145,7 @@ app.controller("HomeController", function($http, $scope, $location, Authenticati
 app.controller('ConfirmController', function($http, $routeParams, $location, FlashService) {
 	var data = $routeParams;
 	$http.post("auth/confirm", data).success(function(response) {
-		$location.path('/');
+		$location.path('/login');
 		FlashService.show(response.flash);
 	});
 

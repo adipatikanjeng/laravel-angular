@@ -1,0 +1,43 @@
+<h1>User</h1>
+<p><strong>Filter:</strong> 
+	<table ng-table="tableParams" data-show-filter="true" class="table">
+		<thead>
+			<th>Firs Name</th><th>Last Name</th><th>Email</th><th>Action</th>
+		</thead>
+		<tr>
+			<td> <input ng-model="query" type="text" placeholder="Filter by first name, last name" autofocus></td>	
+		</tr>
+		<tr ng-repeat="user in users | filter: query | orderBy: firs_name | offset: currentPage*itemsPerPage | limitTo: itemsPerPage ">
+			<td  data-title="'Firs Name'">
+				{{user.first_name}}
+			</td>
+			<td data-title="'Age'">
+				{{user.last_name}}
+			</td>
+			<td>
+				{{ user.email}}
+			</td>
+			<td>
+				<input type="button" value="Remove" ng-click="remove(user.id)">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<div class="pagination">
+					<ul>
+						<li ng-class="prevPageDisabled()">
+							<a href ng-click="prevPage()">« Prev</a>
+						</li>
+						<li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+							<a href="">{{n+1}}</a>
+						</li>
+						<li ng-class="nextPageDisabled()">
+							<a href ng-click="nextPage()">Next »</a>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+

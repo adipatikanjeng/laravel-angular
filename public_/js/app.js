@@ -10,7 +10,7 @@ app.config(function($httpProvider) {
 		var error = function(response) {
 			if (response.status === 401) {
 				SessionService.unset('authenticated');
-				$location.path('/');
+				$location.path('/login');
 				FlashService.show(response.data.flash);
 			}
 			return $q.reject(response);
@@ -27,7 +27,7 @@ app.config(function($httpProvider) {
 
 app.config(function($routeProvider, $locationProvider) {
 
-	$routeProvider.when('/', {
+	$routeProvider.when('/login', {
 		templateUrl: 'templates/login.html',
 		controller: 'LoginController'
 	});
@@ -52,11 +52,30 @@ app.config(function($routeProvider, $locationProvider) {
 		controller: 'ResetPageController'
 	});
 
-	//home page
-
 	$routeProvider.when('/home', {
 		templateUrl: 'templates/home.html',
 		controller: 'HomeController'
+	});
+
+	$routeProvider.when('/books', {
+		templateUrl: 'templates/books.html',
+		controller: 'BooksController',
+		resolve: {
+			books: function(BookService) {
+				return BookService.get();
+			}
+		}
+	});
+
+
+	$routeProvider.when('/profile', {
+		templateUrl: 'templates/profile.html',
+		controller: 'ProfileController',
+		resolve: {
+			profile: function(ProfileService) {
+				return ProfileService.get();
+			}
+		}
 	});
 
 	$routeProvider.when('/user', {
@@ -70,7 +89,7 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 
 	$routeProvider.otherwise({
-		redirectTo: '/'
+		redirectTo: '/login'
 	});
 
 
@@ -84,7 +103,7 @@ app.run(function($rootScope, $location, AuthenticationService, FlashService) {
 
 	$rootScope.$on('$routeChangeStart', function(event, next, current) {
 		if (_(routesThatRequireAuth).contains($location.path()) && !AuthenticationService.isLoggedIn()) {
-			$location.path('/');
+			$location.path('/login');
 			FlashService.show("Please log in to continue.");
 			FlashService.clear();
 		}

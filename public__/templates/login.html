@@ -1,0 +1,26 @@
+<div id="login" class="row">
+  <div class="large-6 large-offset-3">
+    <form ng-submit="login()" shake-that>
+      <fieldset class="radius">
+        <div class="row">
+          <div class="large-6 columns">
+            <input type="text" name="email" placeholder="email" ng-model="credentials.email" required/>
+          </div>
+          <div class="large-6 columns">
+            <input type="password" name="password" placeholder="password" ng-model="credentials.password" required/>
+          </div>
+          <div class="large-12 columns">
+            <input type="checkbox" name="remember" ng-model="credentials.remember">Remember me
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <button type="submit" class="button large expand radius">Log In</button>
+            <br><label><a class="btn btn-link" ng-href="#/reset">Forgot Password?</a>/<a class="btn btn-link" href="#/register">Register New Account</a></label>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

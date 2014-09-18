@@ -4,12 +4,17 @@ use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Contracts\Auth\Authenticator;
 use Response;
 use Lang;
+use Input;
+use App\User;
+use Hash;
+use View;
 
 class AuthController extends Controller {
 
 	public function __construct(Authenticator $auth)
 	{
 		$this->auth = $auth;
+		$this->model = new User;
 
 		// $this->beforeFilter('csrf', ['on' => ['post']]);
 		// $this->beforeFilter('guest', ['except' => ['getLogout']]);
@@ -27,18 +32,18 @@ class AuthController extends Controller {
 		}
 	}
 
-	public function login(RegisterRequest $request)
+	public function login()
 	{
 	
-		$remember = ($request::json('remember')) ? true : false;
+		$remember = (Input::json('remember')) ? true : false;
 
-		if($this->auth->attempt(array('email' => $request::json('email'), 'password' => $request::json('password')), $remember))
+		if($this->auth->attempt(array('email' => Input::json('email'), 'password' => Input::json('password')), $remember))
 		{
 
-			if(User::whereEmail($request::json('email'))->first()->activated == 1)
+			if($this->model->whereEmail(Input::json('email'))->first()->activated == 1)
 			{
 
-				return Response::json(Auth::user());
+				return Response::json($this->auth->user());
 
 			}else{
 
@@ -55,17 +60,18 @@ class AuthController extends Controller {
 	public function logout()
 	{
 		$this->auth->logout();
+
 		return Response::json(array('flash' => Lang::get('auth.logout.title')));
 	}
 
 	public function register()
 	{
 
-		if(User::whereEmail(\Input::json('email'))->first()){
+		if(User::whereEmail(Input::json('email'))->first()){
 
 			return Response::json(array('flash' => Lang::get('auth.alerts.duplicated_credentials')), 500);
 
-		}else if(Input::json('password')!==\Input::json('password_confirmation'))
+		}else if(Input::json('password')!==Input::json('password_confirmation'))
 		{
 			return Response::json(array('flash' => Lang::get('auth.alerts.wrong_confirmation')), 500);
 		}else{

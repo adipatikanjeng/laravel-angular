@@ -1,0 +1,38 @@
+<div id="register" class="row">
+	<div class="large-6 large-offset-3">
+		<form ng-submit="register()">
+			<fieldset class="radius">        
+				<div class="row">
+					<div class="large-7 columns">
+						<input type="text" name="first_name" placeholder="First Name" ng-model="user.first_name" required/>
+					</div>            
+				</div>
+				<div class="row">
+					<div class="large-7 columns">
+						<input type="text" name="last_name" placeholder="Last Name" ng-model="user.last_name"/>
+					</div>            
+				</div>
+				<div class="row">
+					<div class="large-7 columns">
+						<input type="email" name="email" placeholder="Email" ng-model="user.email" required/>
+					</div>            
+				</div>
+				<div class="row">
+					<div class="large-7 columns">
+						<input type="password" name="password" placeholder="Password" ng-model="user.password" required/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-7 columns">
+						<input type="password" name="password_confirmation" placeholder="Confirm Password" ng-model="user.password_confirmation"  required/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<button type="submit" class="button large expand radius">Register</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
