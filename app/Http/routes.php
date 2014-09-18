@@ -32,7 +32,7 @@ Route::group(array('prefik' => "", 'before' => 'auth'), function()
   });
 
   Route::post('user/update/{id}', 'UserController@update');
-  Route::post('user/delete/{id}', 'UserController@delete');
+  Route::post('user/destroy/{id}', 'UserController@destroy');
 
   Route::get('user/list', 'UserController@lists');
   Route::post('user/create', 'UserController@create');

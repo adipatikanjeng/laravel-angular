@@ -69,14 +69,14 @@ app.controller("UserController", function($scope, user, $http, FlashService, $ro
 	$scope.save = function() {
 		$http.post('user/create', $scope.user).success(function(response) {
 			FlashService.show(response.flash);
-			//$route.reload();
+			$route.reload();
 		}).error(function(response) {
 			FlashService.show(response.flash);
 		});
 	}
 
 	$scope.remove = function(id) {
-		$http.post('user/delete/' + id).success(function(response) {
+		$http.post('user/destroy/' + id).success(function(response) {
 			FlashService.show(response.flash);
 			$route.reload();
 		}).error(function(response) {

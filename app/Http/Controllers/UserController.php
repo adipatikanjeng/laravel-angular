@@ -96,7 +96,9 @@ class UserController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->model->find($id)->delete();
+
+		return Response::json();
 	}
 
 }
