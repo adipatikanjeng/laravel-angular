@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/foundation.min.css">  
-  <link rel="stylesheet" href="css/angular-table.css">
+ <!--  <link rel="stylesheet" href="css/bootstrap.min.css"> -->
   <script src="js/angular.js"></script>
   <script src="js/angular-sanitize.js"></script>
   <script src="js/angular-table.js"></script>
