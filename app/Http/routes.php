@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-  return View::make('singlepage');
+  return View::make('index');
 });
 
 
@@ -37,26 +37,28 @@ Route::group(array('prefik' => "", 'before' => 'auth'), function()
   Route::get('user/list', 'UserController@lists');
   Route::post('user/create', 'UserController@create');
   Route::get('user/show/{id}', 'UserController@show');
+  Route::get('user/user-addedit/{id}', 'UserController@show');
 
 
   // return Response::json(array('flash' => 'Session expired'), 401);
 
 });
 
-
+//auth router
 Route::post('auth/login', array('before' => 'csrf_json', 'uses' => 'AuthController@login'));
 Route::get('auth/logout', 'AuthController@logout');
 Route::post('auth/register', 'AuthController@register');
 Route::post('auth/confirm', 'AuthController@confirm');
 Route::post('auth/reset', 'AuthController@reset');
 Route::post('auth/resetPassword/{token}', 'AuthController@resetPassword');
-Route::get('/auth/status', 'AuthController@status');
-Route::get('/auth/secrets','AuthController@secrets');
+
+
+
 
 
 App::missing(function($exception)
 {
-  return View::make('singlepage');
+  return View::make('index');
 });
 
 // Route::any('auth/{all}', function($uri)

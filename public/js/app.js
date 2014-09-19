@@ -59,6 +59,17 @@ app.config(function($routeProvider, $locationProvider) {
 		controller: 'HomeController'
 	});
 
+	$routeProvider.when('/user-addedit/:customerID', {
+		templateUrl: 'templates/addedit.html',
+		controller: 'AddeditController',
+		resolve: {
+			customer: function(CrudService, $route) {
+				var customerID = $route.current.params.customerID;
+				return CrudService.getCustomer(customerID);
+			}
+		}
+	});
+
 	$routeProvider.when('/user', {
 		templateUrl: 'templates/user.html',
 		controller: 'UserController',
@@ -72,7 +83,6 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.otherwise({
 		redirectTo: '/'
 	});
-
 
 	// use the HTML5 History API remove # in url
 	$locationProvider.html5Mode(true);
