@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app="example">
+  <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-route.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+  <script type="text/javascript">
+  //this is here to make plunkr work with AngularJS routing
+  angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+  </script>
+</head>
+  <body>
+
+<div ng-controller="ExmpCtrl">
+<div class="row" ng-controller="ExmpCtrl">
+            <p><a href="link1?search=hello">Link1</a></p>
+            <p><a href="link2/1">Link2</a></p>
+            <p><a href="#">Back</a></p>
+          </div>
+          <div ng-view></div>
+</div>
+
+
+  </body>
+</html>
