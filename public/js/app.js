@@ -85,7 +85,7 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 
 	// use the HTML5 History API remove # in url
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
 
 });
 
