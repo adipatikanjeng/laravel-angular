@@ -34,7 +34,7 @@ class AuthController extends Controller {
 
 	public function login()
 	{
-	
+
 		$remember = (Input::json('remember')) ? true : false;
 
 		if($this->auth->attempt(array('email' => Input::json('email'), 'password' => Input::json('password')), $remember))
@@ -51,9 +51,10 @@ class AuthController extends Controller {
 
 			}	
 			
-		} else {
-
-			return Response::json(array('flash' => Lang::get('auth.alerts.wrong_credentials')), 401);
+		} else {		
+			
+			$html = View::make('alert.warning')->with('data',Lang::get('auth.alerts.wrong_credentials'))->render();
+			return Response::json(array('flash' => $html), 401);
 		}
 	}
 

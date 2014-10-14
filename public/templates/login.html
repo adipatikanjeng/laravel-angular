@@ -1,26 +1,16 @@
-<div id="login" class="row">
-  <div class="large-6 large-offset-3">
-    <form ng-submit="login()" shake-that>
-      <fieldset class="radius">
-        <div class="row">
-          <div class="large-6 columns">
-            <input type="text" name="email" placeholder="email" ng-model="credentials.email" required/>
-          </div>
-          <div class="large-6 columns">
-            <input type="password" name="password" placeholder="password" ng-model="credentials.password" required/>
-          </div>
-          <div class="large-12 columns">
-            <input type="checkbox" name="remember" ng-model="credentials.remember">Remember me
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="large-12 columns">
-            <button type="submit" class="button large expand radius">Log In</button>
-            <br><label><a class="btn btn-link" ng-href="#/reset">Forgot Password?</a>/<a class="btn btn-link" href="#/register">Register New Account</a></label>
-          </div>
-        </div>
-      </fieldset>
-    </form>
+<form ng-submit="login()">
+  <div class="form-group">
+    <label for="inputEmail">Email</label>
+    <input type="email" class="form-control" ng-model="credentials.email" placeholder="Email" required>
   </div>
-</div>
+  <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" ng-model="credentials.password" placeholder="Password" required>
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox" ng-model="credentials.remember"> Remember me</label>
+  </div>
+ 
+  <button type="submit" class="btn btn-primary">Login</button> <a href="#/reset">Forgot password</a>&nbsp<a href="#/register">Register</a>
+</form> 
+

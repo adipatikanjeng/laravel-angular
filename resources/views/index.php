@@ -2,11 +2,11 @@
 <html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
- <!--  <title>AngularJS AuthenticationService Example</title> -->
+   <title>Laravel + AngularJS Authentication Service</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/foundation.min.css">  
-  <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/foundation.min.css">  --> 
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="js/angular.js"></script>
   <script src="js/angular-sanitize.js"></script>
   <script src="js/angular-table.js"></script>
@@ -15,6 +15,8 @@
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
   <script src="js/services.js"></script>
+  <script src="js/message-center.js"></script>
+
   <script>
     angular.module("app").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
   </script>
@@ -22,20 +24,31 @@
 </head>
 <body>
 
-  <div class="row">
-    <div class="large-12">
-     <!--  <h1>End to End with Angular JS</h1>   -->  
-      <div class="row">
-        <div class="large-6 large-offset-3">
-          <div id="flash" class="alert-box alert" ng-show="flash">
-            {{ flash }}
-
-          </div>
-        </div>
-      </div>
-      <div id="view" ng-view></div>
-    </div>
+ <div class="navbar navbar-default">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Company Info</a>
   </div>
+  <div id="navbar" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home Page</a></li>
+      <li><a href="#">Contacts</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Social</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  {{ flash }}
+  <div id="view" ng-view></div>
+</div>
 
 </body>
 </html>
