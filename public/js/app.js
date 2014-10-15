@@ -1,4 +1,4 @@
-var app = angular.module("app", ['ngSanitize', 'MessageCenterModule']);
+var app = angular.module("app", ['ngSanitize', 'ngAnimate', 'toaster', 'ngRoute']);
 
 app.config(function($httpProvider) {
 

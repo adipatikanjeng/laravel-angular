@@ -66,12 +66,10 @@ app.factory("ProfileService", function($http) {
 	};
 });
 
-app.factory("FlashService", function($rootScope, messageCenterService) {
+app.factory("FlashService", function($rootScope) {
 	return {
 		show: function(message) {
-			$rootScope.flash = messageCenterService.add('success', message, {
-				status: messageCenterService.status.permanent
-			});
+			$rootScope.flash = message;
 		},
 		clear: function() {
 			$rootScope.flash = "";

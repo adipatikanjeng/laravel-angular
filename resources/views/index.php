@@ -7,15 +7,16 @@
   <!-- <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/foundation.min.css">  --> 
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/angular.js"></script>
-  <script src="js/angular-sanitize.js"></script>
-  <script src="js/angular-table.js"></script>
+  <script src="js/angular.min.js"></script> 
+  <script src="js/angular-route.min.js"></script>  
+  <script src="js/angular-animate.min.js"></script>  
+  <script src="js/angular-sanitize.js"></script>  
   <script src="js/underscore.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
   <script src="js/services.js"></script>
-  <script src="js/message-center.js"></script>
+  <script src="js/toaster.js"></script>
 
   <script>
     angular.module("app").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
