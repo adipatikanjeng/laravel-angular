@@ -66,10 +66,10 @@ app.factory("ProfileService", function($http) {
 	};
 });
 
-app.factory("FlashService", function($rootScope) {
+app.factory("FlashService", function($rootScope, toaster) {
 	return {
-		show: function(message) {
-			$rootScope.flash = message;
+		show: function(message, type, title) {
+			$rootScope.flash = toaster.pop(type, title, message);
 		},
 		clear: function() {
 			$rootScope.flash = "";
@@ -111,11 +111,11 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 	};
 
 	var loginError = function(response) {
-		FlashService.show(response.flash);
+		FlashService.show(response.flash, 'error');
 	};
 
 	var anyError = function(response) {
-		FlashService.show(response.flash);
+		FlashService.show(response.flash, 'error');
 	};
 
 
@@ -131,8 +131,8 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 	return {
 		login: function(credentials) {
 			var login = $http.post("auth/login", sanitizeCredentials(credentials));
-			login.success(cacheSession);
-			login.success(FlashService.clear);
+			//login.success(cacheSession);
+			//login.success(FlashService.clear);
 			login.error(loginError);
 			return login;
 		},

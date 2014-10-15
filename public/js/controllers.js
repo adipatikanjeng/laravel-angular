@@ -1,4 +1,4 @@
-app.controller("LoginController", function($scope, $location, AuthenticationService, FlashService, SessionService) {
+app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService) {
 	if (SessionService.get('authenticated'))
 		$location.path('/home');
 	$scope.credentials = {

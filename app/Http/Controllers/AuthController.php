@@ -47,14 +47,14 @@ class AuthController extends Controller {
 
 			}else{
 
-				return Response::json(array('flash' =>  Lang::get('auth.alerts.not_confirmed')), 401);
+				return Response::json(array('flash' =>  Lang::get('auth.alerts.not_confirmed')), 405);
 
 			}	
 			
 		} else {		
 			
 			$html = View::make('alert.warning')->with('data',Lang::get('auth.alerts.wrong_credentials'))->render();
-			return Response::json(array('flash' => $html), 401);
+			return Response::json(array('flash' => $html), 405);
 		}
 	}
 

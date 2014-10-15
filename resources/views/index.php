@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
    <title>Laravel + AngularJS Authentication Service</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/toaster.css">
   <!-- <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/foundation.min.css">  --> 
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -48,6 +49,7 @@
 
 <div class="container">
   {{ flash }}
+  <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
   <div id="view" ng-view></div>
 </div>
 
