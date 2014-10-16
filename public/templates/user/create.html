@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="large-6 large-offset-3">
+    <form ng-submit="create()">
+      <fieldset class="radius">        
+        <div class="row">
+          <div class="form-group">
+            <input type="text" name="first_name" class="form-control" placeholder="First Name" ng-model="user.first_name" required/>
+          </div>            
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="text" name="last_name" class="form-control"  placeholder="Last Name" ng-model="user.last_name"/>
+          </div>            
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="email" name="email" class="form-control"  placeholder="Email" ng-model="user.email" required/>
+          </div>            
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="password" name="password" class="form-control"  placeholder="Password" ng-model="user.password" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="password" name="password_confirmation" class="form-control"  placeholder="Confirm Password" ng-model="user.password_confirmation"  required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

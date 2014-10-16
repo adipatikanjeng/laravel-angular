@@ -1,46 +1,74 @@
-app.factory("CrudService", ['$http',
-	function($http) {
-		var serviceBase = 'user/'
-		var obj = {};
-		obj.getCustomers = function() {
-			return $http.get(serviceBase + 'customers');
-		}
-		obj.getCustomer = function(customerID) {
-			return $http.get(serviceBase + 'id=' + customerID);
-		}
-
-		obj.insertCustomer = function(customer) {
-			return $http.post(serviceBase + 'insertCustomer', customer).then(function(results) {
-				return results;
-			});
-		};
-
-		obj.updateCustomer = function(id, customer) {
-			return $http.post(serviceBase + 'updateCustomer', {
-				id: id,
-				customer: customer
-			}).then(function(status) {
-				return status.data;
-			});
-		};
-
-		obj.deleteCustomer = function(id) {
-			return $http.delete(serviceBase + 'deleteCustomer?id=' + id).then(function(status) {
-				return status.data;
-			});
-		};
-
-		return obj;
-	}
-]);
-app.factory("UserPrefix", function($scope) {
+app.factory("CrudService", function($http) {
 	return {
-		get: function() {
-			return $scope;
+		create: function(url, data) {
+			return $http.post(url, data);
+		}
+	}
 
+	return {
+		update: function(url, id, data) {
+			return $http.post(url / id, data);
 		}
 	}
 });
+
+app.factory("SelectService", function($http) {
+	return {
+		get: function(url, id) {
+			return $http.get(url + '/' + id).then(function(result) {
+				return result;
+			});
+		}
+	}
+
+	// return {
+	// 	all: function(url, id, data) {
+	// 		return $http.post(url / id, data);
+	// 	}
+	// }
+});
+
+
+
+// var serviceBase = 'user/'
+// var obj = {};
+// obj.getCustomers = function() {
+// 	return $http.get(serviceBase + 'customers');
+// }
+// obj.getCustomer = function(customerID) {
+// 	return $http.get(serviceBase + 'id=' + customerID);
+// }
+
+// obj.insertCustomer = function(customer) {
+// 	return $http.post(serviceBase + 'insertCustomer', customer).then(function(results) {
+// 		return results;
+// 	});
+// };
+
+// obj.updateCustomer = function(id, customer) {
+// 	return $http.post(serviceBase + 'updateCustomer', {
+// 		id: id,
+// 		customer: customer
+// 	}).then(function(status) {
+// 		return status.data;
+// 	});
+// };
+
+// obj.deleteCustomer = function(id) {
+// 	return $http.delete(serviceBase + 'deleteCustomer?id=' + id).then(function(status) {
+// 		return status.data;
+// 	});
+// };
+
+// return obj;
+
+// app.factory("SelectService", function($http, $scope) {
+// 	return {
+// 		one: function(url, id) {
+// 			return $http.post(url / id);
+// 		}
+// 	}
+// });
 
 app.factory("UserService", function($http) {
 	return {
@@ -131,8 +159,8 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 	return {
 		login: function(credentials) {
 			var login = $http.post("auth/login", sanitizeCredentials(credentials));
-			//login.success(cacheSession);
-			//login.success(FlashService.clear);
+			login.success(cacheSession);
+			login.success(FlashService.clear);
 			login.error(loginError);
 			return login;
 		},

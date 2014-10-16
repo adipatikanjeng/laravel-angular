@@ -18,9 +18,9 @@ app.controller("RegisterController", function($http, $scope, $location, FlashSer
 	$scope.register = function() {
 		$http.post("auth/register", $scope.user).success(function(response) {
 			$location.path('/');
-			FlashService.show(response.flash);
+			FlashService.show(response.flash, 'success');
 		}).error(function(response) {
-			FlashService.show(response.flash);
+			FlashService.show(response.flash, 'error');
 		});
 	};
 });
@@ -29,9 +29,9 @@ app.controller("ResetController", function($http, $scope, $location, FlashServic
 	$scope.requestReset = function() {
 		$http.post("auth/reset", $scope.user).success(function(response) {
 			$location.path('/');
-			FlashService.show(response.flash);
+			FlashService.show(response.flash, 'success');
 		}).error(function(response) {
-			FlashService.show(response.flash);
+			FlashService.show(response.flash, 'warning');
 		});
 	};
 });
@@ -42,7 +42,7 @@ app.controller("ResetPageController", function($http, $scope, $location, $routeP
 		FlashService.clear;
 		$http.post("auth/resetPassword/" + $routeParams.token, data).success(function(response) {
 			$location.path('/');
-			FlashService.show(response.flash);
+			FlashService.show(response.flash, 'success');
 		});
 	};
 });
@@ -64,87 +64,97 @@ app.controller("ProfileController", function($scope, profile, $http, FlashServic
 
 });
 
-app.controller("UserController", function($scope, user, $http, FlashService, $route, $filter) {
+app.controller("UserController", function($scope, $http, FlashService, $route, $filter, CrudService, $routeParams, SelectService) {
 
-	$scope.save = function() {
-		$http.post('user/create', $scope.user).success(function(response) {
-			FlashService.show(response.flash);
-			$route.reload();
-		}).error(function(response) {
-			FlashService.show(response.flash);
-		});
+	$scope.create = function() {
+		CrudService.create('user/create', $scope.user);
+	}
+	$scope.update = function() {
+		CrudService.update('user/update/id=', $scope.user.id, $scope.user);
 	}
 
-	$scope.remove = function(id) {
-		$http.post('user/destroy/' + id).success(function(response) {
-			FlashService.show(response.flash);
-			$route.reload();
-		}).error(function(response) {
-			FlashService.show(response.flash);
-		});
-	}
+	$scope.user = SelectService.get('user/show', $routeParams.id);
+	console.log($scope.user.first_name);
+	//console.log(SelectService.get('user/show', $routeParams.id));
 
-	$scope.update = function(id) {
-		$http.post('user/update/' + id, $scope.user).success(function(response) {
-			FlashService.show(response.flash);
-			$route.reload();
-		}).error(function(response) {
-			FlashService.show(response.flash);
-		});
-	}
+	// $http.post('user/create', $scope.user).success(function(response) {
+	// 	FlashService.show(response.flash);
+	// 	$route.reload();
+	// }).error(function(response) {
+	// 	FlashService.show(response.flash);
+	// });
+	//}
 
-	$scope.users = user.data;
+	// $scope.remove = function(id) {
+	// 	$http.post('user/destroy/' + id).success(function(response) {
+	// 		FlashService.show(response.flash);
+	// 		$route.reload();
+	// 	}).error(function(response) {
+	// 		FlashService.show(response.flash);
+	// 	});
+	// }
 
-	$scope.filterFunction = function(element) {
-		return element.first_name.match() ? true : false;
-	};
+	// $scope.update = function(id) {
+	// 	$http.post('user/update/' + id, $scope.user).success(function(response) {
+	// 		FlashService.show(response.flash);
+	// 		$route.reload();
+	// 	}).error(function(response) {
+	// 		FlashService.show(response.flash);
+	// 	});
+	// }
 
-	$scope.itemsPerPage = 3;
-	$scope.currentPage = 0;
+	// $scope.users = user.data;
 
-	$scope.range = function() {
-		var rangeSize = 2;
-		var ret = [];
-		var start;
+	// $scope.filterFunction = function(element) {
+	// 	return element.first_name.match() ? true : false;
+	// };
 
-		start = $scope.currentPage;
-		if (start > $scope.pageCount() - rangeSize) {
-			start = $scope.pageCount() - rangeSize + 1;
-		}
+	// $scope.itemsPerPage = 3;
+	// $scope.currentPage = 0;
 
-		for (var i = start; i < start + rangeSize; i++) {
-			ret.push(i);
-		}
-		return ret;
-	};
+	// $scope.range = function() {
+	// 	var rangeSize = 2;
+	// 	var ret = [];
+	// 	var start;
 
-	$scope.prevPage = function() {
-		if ($scope.currentPage > 0) {
-			$scope.currentPage--;
-		}
-	};
+	// 	start = $scope.currentPage;
+	// 	if (start > $scope.pageCount() - rangeSize) {
+	// 		start = $scope.pageCount() - rangeSize + 1;
+	// 	}
 
-	$scope.prevPageDisabled = function() {
-		return $scope.currentPage === 0 ? "disabled" : "";
-	};
+	// 	for (var i = start; i < start + rangeSize; i++) {
+	// 		ret.push(i);
+	// 	}
+	// 	return ret;
+	// };
 
-	$scope.pageCount = function() {
-		return Math.ceil($scope.users.length / $scope.itemsPerPage) - 1;
-	};
+	// $scope.prevPage = function() {
+	// 	if ($scope.currentPage > 0) {
+	// 		$scope.currentPage--;
+	// 	}
+	// };
 
-	$scope.nextPage = function() {
-		if ($scope.currentPage < $scope.pageCount()) {
-			$scope.currentPage++;
-		}
-	};
+	// $scope.prevPageDisabled = function() {
+	// 	return $scope.currentPage === 0 ? "disabled" : "";
+	// };
 
-	$scope.nextPageDisabled = function() {
-		return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-	};
+	// $scope.pageCount = function() {
+	// 	return Math.ceil($scope.users.length / $scope.itemsPerPage) - 1;
+	// };
 
-	$scope.setPage = function(n) {
-		$scope.currentPage = n;
-	};
+	// $scope.nextPage = function() {
+	// 	if ($scope.currentPage < $scope.pageCount()) {
+	// 		$scope.currentPage++;
+	// 	}
+	// };
+
+	// $scope.nextPageDisabled = function() {
+	// 	return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+	// };
+
+	// $scope.setPage = function(n) {
+	// 	$scope.currentPage = n;
+	// };
 
 });
 

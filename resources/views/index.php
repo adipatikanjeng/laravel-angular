@@ -2,27 +2,10 @@
 <html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
-   <title>Laravel + AngularJS Authentication Service</title>
+  <title>Laravel + AngularJS Authentication Service</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/toaster.css">
-  <!-- <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/foundation.min.css">  --> 
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/angular.min.js"></script> 
-  <script src="js/angular-route.min.js"></script>  
-  <script src="js/angular-animate.min.js"></script>  
-  <script src="js/angular-sanitize.js"></script>  
-  <script src="js/underscore.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/directives.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/toaster.js"></script>
-
-  <script>
-    angular.module("app").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
-  </script>
-  <!-- <base href=""> -->
 </head>
 <body>
 
@@ -47,11 +30,24 @@
   </div>
 </div>
 
-<div class="container">
-  {{ flash }}
-  <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}"></toaster-container>
+<div class="container">  
+  <toaster-container toaster-options="{'position-class': 'toast-top-full-width'}">{{ flash }}</toaster-container>
   <div id="view" ng-view></div>
 </div>
 
+<script src="js/angular.min.js"></script> 
+<script src="js/angular-route.min.js"></script>  
+<script src="js/angular-animate.min.js"></script>  
+<script src="js/angular-sanitize.js"></script>  
+<script src="js/underscore.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/services.js"></script>
+<script src="js/toaster.js"></script>
+
+<script>
+  angular.module("app").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
+</script>
 </body>
 </html>
