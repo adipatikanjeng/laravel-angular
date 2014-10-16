@@ -47,43 +47,25 @@ app.controller("ResetPageController", function($http, $scope, $location, $routeP
 	};
 });
 
-app.controller("BooksController", function($scope, books) {
-	$scope.books = books.data;
-});
 
-app.controller("ProfileController", function($scope, profile, $http, FlashService) {
-
-	$scope.update = function() {
-		$http.post('user/update/' + profile.data.id, $scope.profile).success(function(response) {
-			FlashService.show(response.flash);
-		}).error(function(response) {
-			FlashService.show(response.flash);
-		});
-	}
-	$scope.profile = profile.data;
-
-});
-
-app.controller("UserController", function($scope, $http, FlashService, $route, $filter, CrudService, $routeParams, SelectService) {
+app.controller("UserController", function($scope, $http, FlashService, user, $route, $filter, CrudService, $location, $routeParams, SelectService) {
 
 	$scope.create = function() {
-		CrudService.create('user/create', $scope.user);
+		CrudService.create('user/create', $scope.user).success(function(response) {
+			FlashService.show(response.flash, 'success');
+			$location.path('user/lists');
+		}).error(function(response) {
+			FlashService.show(response.flash, 'warning');
+		});		
 	}
-	$scope.update = function() {
-		CrudService.update('user/update/id=', $scope.user.id, $scope.user);
+	$scope.user = angular.copy(user.data);
+	$scope.update = function() {			
+		CrudService.update('user/update', $routeParams.id, $scope.user);
 	}
 
-	$scope.user = SelectService.get('user/show', $routeParams.id);
-	console.log($scope.user.first_name);
-	//console.log(SelectService.get('user/show', $routeParams.id));
-
-	// $http.post('user/create', $scope.user).success(function(response) {
-	// 	FlashService.show(response.flash);
-	// 	$route.reload();
-	// }).error(function(response) {
-	// 	FlashService.show(response.flash);
-	// });
-	//}
+	$scope.users = angular.copy(user.data);
+	
+	
 
 	// $scope.remove = function(id) {
 	// 	$http.post('user/destroy/' + id).success(function(response) {
@@ -94,67 +76,67 @@ app.controller("UserController", function($scope, $http, FlashService, $route, $
 	// 	});
 	// }
 
-	// $scope.update = function(id) {
-	// 	$http.post('user/update/' + id, $scope.user).success(function(response) {
-	// 		FlashService.show(response.flash);
-	// 		$route.reload();
-	// 	}).error(function(response) {
-	// 		FlashService.show(response.flash);
-	// 	});
-	// }
+	$scope.remove = function(id) {
+		if (confirm('Are you sure to delete?')) {
+		CrudService.destroy('user/destroy', id).success(function(response) {
+			FlashService.show(response.flash, 'success');
+			$route.reload();
+		}).error(function(response) {
+			FlashService.show(response.flash, 'warning');
+		});	}	
+	}
 
-	// $scope.users = user.data;
 
-	// $scope.filterFunction = function(element) {
-	// 	return element.first_name.match() ? true : false;
-	// };
+	$scope.filterFunction = function(element) {
+		return element.first_name.match() ? true : false;
+	};
 
-	// $scope.itemsPerPage = 3;
-	// $scope.currentPage = 0;
+	$scope.itemsPerPage = 3;
+	$scope.currentPage = 0;
 
-	// $scope.range = function() {
-	// 	var rangeSize = 2;
-	// 	var ret = [];
-	// 	var start;
+	$scope.range = function() {
+		var rangeSize = 2;
+		var ret = [];
+		var start;
 
-	// 	start = $scope.currentPage;
-	// 	if (start > $scope.pageCount() - rangeSize) {
-	// 		start = $scope.pageCount() - rangeSize + 1;
-	// 	}
+		start = $scope.currentPage;
+		if (start > $scope.pageCount() - rangeSize) {
+			start = $scope.pageCount() - rangeSize + 1;
+		}
 
-	// 	for (var i = start; i < start + rangeSize; i++) {
-	// 		ret.push(i);
-	// 	}
-	// 	return ret;
-	// };
+		for (var i = start; i < start + rangeSize; i++) {
+			ret.push(i);
+		}
+		return ret;
+	};
 
-	// $scope.prevPage = function() {
-	// 	if ($scope.currentPage > 0) {
-	// 		$scope.currentPage--;
-	// 	}
-	// };
+	$scope.prevPage = function() {
+		if ($scope.currentPage > 0) {
+			$scope.currentPage--;
+		}
+	};
 
-	// $scope.prevPageDisabled = function() {
-	// 	return $scope.currentPage === 0 ? "disabled" : "";
-	// };
+	$scope.prevPageDisabled = function() {
+		return $scope.currentPage === 0 ? "disabled" : "";
+	};
 
-	// $scope.pageCount = function() {
-	// 	return Math.ceil($scope.users.length / $scope.itemsPerPage) - 1;
-	// };
+	$scope.pageCount = function() {
+		return Math.ceil($scope.users.length / $scope.itemsPerPage) - 1;
+	};
 
-	// $scope.nextPage = function() {
-	// 	if ($scope.currentPage < $scope.pageCount()) {
-	// 		$scope.currentPage++;
-	// 	}
-	// };
+	$scope.nextPage = function() {
+		if ($scope.currentPage < $scope.pageCount()) {
+			$scope.currentPage++;
+		}
+	};
 
-	// $scope.nextPageDisabled = function() {
-	// 	return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-	// };
+	$scope.nextPageDisabled = function() {
+		return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+	};
 
-	// $scope.setPage = function(n) {
-	// 	$scope.currentPage = n;
-	// };
+	$scope.setPage = function(n) {
+		$scope.currentPage = n;
+	};
 
 });
 

@@ -2,12 +2,12 @@ app.factory("CrudService", function($http) {
 	return {
 		create: function(url, data) {
 			return $http.post(url, data);
-		}
-	}
-
-	return {
-		update: function(url, id, data) {
-			return $http.post(url / id, data);
+		},
+		update: function(url, id, data) {			
+			return $http.post(url + '/' + id, data);
+		},
+		destroy: function(url, id) {			
+			return $http.post(url + '/' + id);
 		}
 	}
 });
@@ -18,14 +18,14 @@ app.factory("SelectService", function($http) {
 			return $http.get(url + '/' + id).then(function(result) {
 				return result;
 			});
+		},
+		all: function(url){
+			return $http.get(url).then(function(result) {
+				return result;
+			});
 		}
 	}
-
-	// return {
-	// 	all: function(url, id, data) {
-	// 		return $http.post(url / id, data);
-	// 	}
-	// }
+	
 });
 
 

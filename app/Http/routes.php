@@ -34,10 +34,10 @@ Route::group(array('prefik' => "", 'before' => 'auth'), function()
   Route::post('user/update/{id}', 'UserController@update');
   Route::post('user/destroy/{id}', 'UserController@destroy');
 
-  Route::get('user/list', 'UserController@lists');
+  Route::get('user/lists', 'UserController@lists');
   Route::post('user/create', 'UserController@create');
   Route::get('user/show/{id}', 'UserController@show');
-  Route::get('user/user-addedit/{id}', 'UserController@show');
+  // Route::get('user/user-addedit/{id}', 'UserController@show');
 
 
   // return Response::json(array('flash' => 'Session expired'), 401);

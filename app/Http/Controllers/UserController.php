@@ -6,6 +6,7 @@ use App\User;
 use Response;
 use Input;
 use Hash;
+use Lang;
 
 class UserController extends Controller {
 
@@ -34,15 +35,23 @@ class UserController extends Controller {
 	 */
 	public function create()
 	{
+		if(User::whereEmail(Input::json('email'))->first()){
+
+			return Response::json(array('flash' => Lang::get('user.alerts.duplicated_user_email')), 500);
+
+		}else if(\Input::json('password')!=\Input::json('password_confirmation'))
+		{
+			return Response::json(array('flash' => Lang::get('user.alerts.wrong_password_confirmation')), 500);
+		}
 		$model = $this->model;
 		$model->first_name = \Input::json('first_name');
 		$model->last_name = \Input::json('last_name');
-		$model->email = \Input::json('email');
+		$model->email = \Input::json('email');		
 		$model->password = Hash::make(\Input::json('password'));
 		$model->save();
 		
-		return Response::json();
-		
+		return Response::json(array('flash' => Lang::get('user.alerts.user_created')),200);
+
 	}
 
 	/**
@@ -65,7 +74,7 @@ class UserController extends Controller {
 	{
 		$model = $this->model->find($id);
 
-		return Response::json(array('user',$model));
+		return Response::json($model);
 	}
 
 	/**
@@ -91,8 +100,16 @@ class UserController extends Controller {
 		$model->first_name = \Input::json('first_name');
 		$model->last_name = \Input::json('last_name');
 		$model->email = \Input::json('email');
-		$model->password = Hash::make(\Input::json('password'));
+		if(\Input::json('password')){
+			if(\Input::json('password')!=\Input::json('password_confirmation'))
+			{
+				return Response::json(array('flash' => Lang::get('auth.alerts.wrong_confirmation')), 500);
+			}
+			$model->password = Hash::make(\Input::json('password'));
+		}
 		$model->update();
+
+		return Response::json(array('flash' => Lang::get('user.alerts.updated_success')), 200);
 	}
 
 	/**
@@ -105,7 +122,7 @@ class UserController extends Controller {
 	{
 		$this->model->find($id)->delete();
 
-		return Response::json();
+		return Response::json(array('flash' => Lang::get('user.alerts.deleted_confirm')), 200);
 	}
 
 }

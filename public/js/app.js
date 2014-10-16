@@ -58,37 +58,34 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/home.html',
 		controller: 'HomeController'
 	});
-
-	$routeProvider.when('/user-addedit/:customerID', {
-		templateUrl: 'templates/addedit.html',
-		controller: 'AddeditController',
-		resolve: {
-			customer: function(CrudService, $route) {
-				var customerID = $route.current.params.customerID;
-				return CrudService.getCustomer(customerID);
-			}
-		}
-	});
+	
 
 	$routeProvider.when('/user/create', {
 		templateUrl: 'templates/user/create.html',
 		controller: 'UserController',
+		resolve: {
+			user: function(){
+				return '';
+			}
+		}
 	});
 
 	$routeProvider.when('/user/update/:id', {
 		templateUrl: 'templates/user/update.html',
 		controller: 'UserController',
 		resolve: {
-
+			user: function(SelectService, $route){
+				return SelectService.get('user/show', $route.current.params.id);
+			}
 		}
 	});
 
-	$routeProvider.when('/user', {
-		templateUrl: 'templates/user.html',
+	$routeProvider.when('/user/lists', {
+		templateUrl: 'templates/user/list.html',
 		controller: 'UserController',
 		resolve: {
-			user: function(UserService) {
-				return UserService.get();
+			user: function(SelectService) {
+				return SelectService.all('user/lists');
 			}
 		}
 	});
@@ -103,7 +100,7 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run(function($rootScope, $location, AuthenticationService, FlashService) {
-	var routesThatRequireAuth = ['/home', '/user/create'];
+	var routesThatRequireAuth = ['/home', '/user/create', '/user/update/:id'];
 
 	$rootScope.$on('$routeChangeStart', function(event, next, current) {
 		if (_(routesThatRequireAuth).contains($location.path()) && !AuthenticationService.isLoggedIn()) {
