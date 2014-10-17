@@ -28,7 +28,12 @@ app.config(function($httpProvider) {
 app.config(function($routeProvider, $locationProvider) {
 
 	$routeProvider.when('/', {
-		templateUrl: 'templates/login.html',
+		templateUrl: 'templates/auth/login.html',
+		controller: 'LoginController'
+	});
+
+	$routeProvider.when('/login', {
+		templateUrl: 'templates/auth/login.html',
 		controller: 'LoginController'
 	});
 
@@ -58,13 +63,13 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/home.html',
 		controller: 'HomeController'
 	});
-	
+
 
 	$routeProvider.when('/user/create', {
 		templateUrl: 'templates/user/create.html',
 		controller: 'UserController',
 		resolve: {
-			user: function(){
+			user: function() {
 				return '';
 			}
 		}
@@ -74,7 +79,7 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'templates/user/update.html',
 		controller: 'UserController',
 		resolve: {
-			user: function(SelectService, $route){
+			user: function(SelectService, $route) {
 				return SelectService.get('user/show', $route.current.params.id);
 			}
 		}
@@ -100,11 +105,14 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run(function($rootScope, $location, AuthenticationService, FlashService) {
-	var routesThatRequireAuth = ['/home', '/user/create', '/user/update/:id'];
+	var routesThatRequireAuth = ['/home', '/user/create', '/user/update/:id', '/user/lists'];
 
 	$rootScope.$on('$routeChangeStart', function(event, next, current) {
 		if (_(routesThatRequireAuth).contains($location.path()) && !AuthenticationService.isLoggedIn()) {
+			var nextUrl = $location.path();
 			$location.path('/login');
+			$location.search('nextUrl', nextUrl);
+
 			FlashService.show("Please log in to continue.", 'warning');
 			FlashService.clear();
 		}

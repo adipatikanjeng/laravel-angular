@@ -1,4 +1,4 @@
-app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService) {
+app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService, $routeParams) {
 	if (SessionService.get('authenticated'))
 		$location.path('/home');
 	$scope.credentials = {
@@ -9,6 +9,9 @@ app.controller("LoginController", function($scope, $location, AuthenticationServ
 
 	$scope.login = function() {
 		AuthenticationService.login($scope.credentials).success(function() {
+			if ($routeParams.nextUrl) {
+				$location.path('"' + $routeParams.nextUrl + '"');
+			}
 			$location.path('/home');
 		});
 	};
@@ -56,16 +59,16 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 			$location.path('user/lists');
 		}).error(function(response) {
 			FlashService.show(response.flash, 'warning');
-		});		
+		});
 	}
 	$scope.user = angular.copy(user.data);
-	$scope.update = function() {			
+	$scope.update = function() {
 		CrudService.update('user/update', $routeParams.id, $scope.user);
 	}
 
 	$scope.users = angular.copy(user.data);
-	
-	
+
+
 
 	// $scope.remove = function(id) {
 	// 	$http.post('user/destroy/' + id).success(function(response) {
@@ -78,12 +81,13 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 
 	$scope.remove = function(id) {
 		if (confirm('Are you sure to delete?')) {
-		CrudService.destroy('user/destroy', id).success(function(response) {
-			FlashService.show(response.flash, 'success');
-			$route.reload();
-		}).error(function(response) {
-			FlashService.show(response.flash, 'warning');
-		});	}	
+			CrudService.destroy('user/destroy', id).success(function(response) {
+				FlashService.show(response.flash, 'success');
+				$route.reload();
+			}).error(function(response) {
+				FlashService.show(response.flash, 'warning');
+			});
+		}
 	}
 
 
