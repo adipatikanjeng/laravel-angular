@@ -1,4 +1,4 @@
-<h1>User</h1>
+<a href="#/user/create" class="btn"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add new User</a>
 <table data-show-filter="true" class="table">
 	<thead>
 		<th>Firs Name</th><th>Last Name</th><th>Email</th><th>Action</th>
@@ -15,29 +15,29 @@
 		</td>
 		<td>
 			{{ user.email}}
+		</td>		
+		<td>
+			<a href="" ng-click="remove(user.id)" class="btn"><i class="glyphicon glyphicon-remove"></i></a>
+			<a href="#/user/update/{{user.id}}" class="btn"><i class="glyphicon glyphicon-edit"></i></a>
+		</td>				
+	</tr>
+	<tr>
+		<td colspan="3">
+			<div>
+				<ul  class="pagination">
+					<li ng-class="prevPageDisabled()">
+						<a href ng-click="prevPage()">« Prev</a>
+					</li>
+					<li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+						<a href="">{{n+1}}</a>
+					</li>
+					<li ng-class="nextPageDisabled()">
+						<a href ng-click="nextPage()">Next »</a>
+					</li>
+				</ul>
+			</div>
 		</td>
-		<td>			
-			<td><a href="" ng-click="remove(user.id)" class="btn">&nbsp;<i class="glyphicon glyphicon-remove"></i></a>
-				<a href="#/user/update/{{user.id}}" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i></a></td>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<div class="pagination">
-					<ul>
-						<li ng-class="prevPageDisabled()">
-							<a href ng-click="prevPage()">« Prev</a>
-						</li>
-						<li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-							<a href="">{{n+1}}</a>
-						</li>
-						<li ng-class="nextPageDisabled()">
-							<a href ng-click="nextPage()">Next »</a>
-						</li>
-					</ul>
-				</div>
-			</td>
-		</tr>
-	</table>
+	</tr>
+</table>
 
 
