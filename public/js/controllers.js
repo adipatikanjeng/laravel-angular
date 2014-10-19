@@ -1,6 +1,30 @@
-app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService, $routeParams) {
-	if (SessionService.get('authenticated'))
-		$location.path('/home');
+app.controller("ApplicationController", function($http, $scope, $location, FlashService, SessionService, AuthenticationService) {
+	 $scope.isVisible = 'false';
+	 if(SessionService.get('authenticated'))
+	 {
+	 	$scope.isVisible = 'true';
+	 }	 
+	 
+
+
+	 $scope.logout = function() {	 	
+		AuthenticationService.logout().success(function(response) {
+			FlashService.show(response.flash, 'success');
+			$location.path('/login');			
+		});
+	};
+});
+
+app.controller("WelcomeController",  function($location, SessionService) {
+
+	 if (SessionService.get('authenticated'))
+	 	$location.path('/home');
+});
+
+app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService, $routeParams, $rootScope) {
+	// if (SessionService.get('authenticated'))
+	// 	$location.path('/home');
+
 	$scope.credentials = {
 		email: "",
 		password: "",
@@ -8,11 +32,14 @@ app.controller("LoginController", function($scope, $location, AuthenticationServ
 	};
 
 	$scope.login = function() {
-		AuthenticationService.login($scope.credentials).success(function() {
-			if ($routeParams.nextUrl) {
-				$location.path('"' + $routeParams.nextUrl + '"');
+		AuthenticationService.login($scope.credentials).success(function(results) {
+			//$rootScope.currentUser = results.first_name;
+			if ($routeParams.nextUrl) {				
+				$location.path($routeParams.nextUrl);
+				$location.url($location.path());
+			}else{
+				$location.path('/home');
 			}
-			$location.path('/home');
 		});
 	};
 });
@@ -144,38 +171,9 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 
 });
 
-app.controller('AddeditController', function($scope, $rootScope, $location, $routeParams, CrudService, customer) {
-	var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0;
-	$rootScope.title = (customerID > 0) ? 'Edit Customer' : 'Add Customer';
-	$scope.buttonText = (customerID > 0) ? 'Update Customer' : 'Add New Customer';
-	var original = customer.data;
-	original._id = customerID;
-	$scope.customer = angular.copy(original);
-	$scope.customer._id = customerID;
 
-	$scope.isClean = function() {
-		return angular.equals(original, $scope.customer);
-	}
-
-	$scope.deleteCustomer = function(customer) {
-		$location.path('/');
-		if (confirm("Are you sure to delete customer number: " + $scope.customer._id) == true)
-			CrudService.deleteCustomer(customer.customerNumber);
-	};
-
-	$scope.saveCustomer = function(customer) {
-		$location.path('/');
-		if (customerID <= 0) {
-			CrudService.insertCustomer(customer);
-		} else {
-			CrudService.updateCustomer(customerID, customer);
-		}
-	};
-});
-
-
-app.controller("HomeController", function($http, $scope, $location, AuthenticationService, SessionService) {
-	$scope.title = "Awesome Home";
+app.controller("HomeController", function($http, $scope, $location, AuthenticationService, SessionService, $rootScope) {
+	$scope.title = SessionService.get('userId');
 	$scope.message = "Mouse Over these images to see a directive at work!";
 
 	$scope.logout = function() {
@@ -191,6 +189,13 @@ app.controller('ConfirmController', function($http, $routeParams, $location, Fla
 		$location.path('/');
 		FlashService.show(response.flash);
 	});
+});
 
+app.controller("LogoutController", function($http, $scope, $location, AuthenticationService, SessionService) {	
+	AuthenticationService.logout().success(function() {
 
+		FlashService.show(response.flash, 'success');
+		$location.path('/login');
+	});
+	
 });

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/toaster.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
-<body>
+<body ng-controller="ApplicationController">
 
  <div class="navbar navbar-default">
   <div class="navbar-header">
@@ -22,10 +22,12 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home Page</a></li>
       <li><a href="#">Contacts</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="#">About</a></li>     
     </ul>
+
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Social</a></li>
+      <li show-auth-component ><a href=""><span ng-click="logout()" class="glyphicon glyphicon-off"></span></a></li>
+       <li hidden-auth-component ><a href=""><span ng-click="login()" class="glyphicon glyphicon-user"></span></a></li>
     </ul>
   </div>
 </div>

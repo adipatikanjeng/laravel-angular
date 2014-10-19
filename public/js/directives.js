@@ -14,3 +14,48 @@ app.directive("showsMessageWhenHovered", function() {
 		}
 	};
 });
+
+app.directive('showAuthComponent', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attributes) {
+			if(scope.isVisible)
+			{
+				element.removeClass('hidden');
+			}
+			else
+			{
+				element.addClass('hidden');
+			}
+			
+			
+		}
+	};
+});
+
+app.directive('hiddenAuthComponent', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attributes) {
+			if(scope.isVisible=="true")
+			{
+				
+				element.addClass('hidden');
+			}
+			else
+			{
+
+				element.removeClass('hidden');
+			}
+			
+			
+		}
+	};
+});
+
+// app.directive('showAuthComponent', function() {
+//     return function(scope, element, attrs) {
+//     	$scope.isVisible = 'false';	 
+// 	 $scope.isVisible = SessionService.get('authenticated');
+//     }
+// });

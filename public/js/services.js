@@ -128,7 +128,7 @@ app.filter('offset', function() {
 
 
 
-app.factory("AuthenticationService", function($http, $sanitize, SessionService, FlashService, CSRF_TOKEN) {
+app.factory("AuthenticationService", function($http, $sanitize, SessionService, FlashService, CSRF_TOKEN, $rootScope) {
 
 	var cacheSession = function() {
 		SessionService.set('authenticated', true);
@@ -136,6 +136,7 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 
 	var uncacheSession = function() {
 		SessionService.unset('authenticated');
+		SessionService.unset('user');
 	};
 
 	var loginError = function(response) {
@@ -160,6 +161,9 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 		login: function(credentials) {
 			var login = $http.post("auth/login", sanitizeCredentials(credentials));
 			login.success(cacheSession);
+			login.success(function(results){				
+				SessionService.set('userId', results.id);
+			});
 			login.success(FlashService.clear);
 			login.error(loginError);
 			return login;

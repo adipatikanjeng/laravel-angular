@@ -28,8 +28,8 @@ app.config(function($httpProvider) {
 app.config(function($routeProvider, $locationProvider) {
 
 	$routeProvider.when('/', {
-		templateUrl: 'templates/auth/login.html',
-		controller: 'LoginController'
+		templateUrl: 'templates/welcome.html',
+		controller: 'WelcomeController'
 	});
 
 	$routeProvider.when('/login', {
@@ -55,6 +55,10 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/reset/:token', {
 		templateUrl: 'templates/resetPage.html',
 		controller: 'ResetPageController'
+	});
+
+	$routeProvider.when('/logout', {		
+		controller: 'LogoutController'		
 	});
 
 	//home page
