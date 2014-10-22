@@ -15,40 +15,20 @@ app.directive("showsMessageWhenHovered", function() {
 	};
 });
 
-app.directive('showAuthComponent', function () {
+app.directive('showAuthComponent', function() {
 	return {
 		restrict: 'A',
-		link: function (scope, element, attributes) {
-			if(scope.isVisible)
-			{
-				element.removeClass('hidden');
-			}
-			else
-			{
-				element.addClass('hidden');
-			}
-			
-			
-		}
-	};
-});
+		link: function(scope, element, attributes) {
 
-app.directive('hiddenAuthComponent', function () {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attributes) {
-			if(scope.isVisible=="true")
-			{
-				
-				element.addClass('hidden');
-			}
-			else
-			{
-
+			if (scope.isVisible == "true") {
 				element.removeClass('hidden');
+
+
+			} else {
+				element.addClass('hidden');
+
 			}
-			
-			
+
 		}
 	};
 });

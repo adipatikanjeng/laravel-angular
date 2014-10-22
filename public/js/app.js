@@ -1,4 +1,4 @@
-var app = angular.module("app", ['ngSanitize', 'ngAnimate', 'toaster', 'ngRoute']);
+var app = angular.module("app", ['ngSanitize', 'ngAnimate', 'toaster', 'ngRoute', 'ui.router']);
 
 app.config(function($httpProvider) {
 
@@ -25,7 +25,7 @@ app.config(function($httpProvider) {
 
 });
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider, $stateProvider) {
 
 	$routeProvider.when('/', {
 		templateUrl: 'templates/welcome.html',
@@ -57,8 +57,8 @@ app.config(function($routeProvider, $locationProvider) {
 		controller: 'ResetPageController'
 	});
 
-	$routeProvider.when('/logout', {		
-		controller: 'LogoutController'		
+	$routeProvider.when('/logout', {
+		controller: 'LogoutController'
 	});
 
 	//home page
@@ -105,6 +105,17 @@ app.config(function($routeProvider, $locationProvider) {
 
 	// use the HTML5 History API remove # in url
 	//$locationProvider.html5Mode(true);
+
+	$stateProvider
+		.state('home', {
+			url: "/home",
+			views: {
+				logout: {
+					template: '<span ng-click="logout()" class="glyphicon glyphicon-off">',
+					controller: function($scope) {}
+				},
+			}
+		});
 
 });
 

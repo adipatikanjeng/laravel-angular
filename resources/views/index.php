@@ -26,8 +26,8 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li show-auth-component ><a href=""><span ng-click="logout()" class="glyphicon glyphicon-off"></span></a></li>
-       <li hidden-auth-component ><a href=""><span ng-click="login()" class="glyphicon glyphicon-user"></span></a></li>
+      <li ><a href="" ui-view="logout"></span></a></li>
+       <!-- <li ><a href=""><span ng-click="login()" class="glyphicon glyphicon-user"></span></a></li> -->      
     </ul>
   </div>
 </div>
@@ -47,6 +47,7 @@
 <script src="js/directives.js"></script>
 <script src="js/services.js"></script>
 <script src="js/toaster.js"></script>
+<script src="js/angular-ui-router.js"></script>
 
 <script>
   angular.module("app").constant("CSRF_TOKEN", '<?php echo csrf_token(); ?>');
