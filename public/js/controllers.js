@@ -109,17 +109,6 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 
 	$scope.users = angular.copy(user.data);
 
-
-
-	// $scope.remove = function(id) {
-	// 	$http.post('user/destroy/' + id).success(function(response) {
-	// 		FlashService.show(response.flash);
-	// 		$route.reload();
-	// 	}).error(function(response) {
-	// 		FlashService.show(response.flash);
-	// 	});
-	// }
-
 	$scope.remove = function(id) {
 		if (confirm('Are you sure to delete?')) {
 			CrudService.destroy('user/destroy', id).success(function(response) {

@@ -26,7 +26,7 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
-      <li ><a href="" ui-view="logout"></span></a></li>        
+      <li ><a href=""><span ng-click="logout()" class="glyphicon glyphicon-off"></span></a></li>        
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
      <li ><a href="#/user/show/{{ userId }}"><span class="glyphicon glyphicon-user"></span> {{ userName }} </a></li>     
