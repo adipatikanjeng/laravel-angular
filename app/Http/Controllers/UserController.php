@@ -72,6 +72,7 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
+		
 		$model = $this->model->find($id);
 
 		return Response::json($model);

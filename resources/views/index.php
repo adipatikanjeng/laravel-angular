@@ -25,9 +25,15 @@
       <li><a href="#">About</a></li>     
     </ul>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li ><a href="" ui-view="logout"></span></a></li>
-       <!-- <li ><a href=""><span ng-click="login()" class="glyphicon glyphicon-user"></span></a></li> -->      
+    <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
+      <li ><a href="" ui-view="logout"></span></a></li>        
+    </ul>
+    <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
+     <li ><a href="#/user/show/{{ userId }}"><span class="glyphicon glyphicon-user"></span> {{ userName }} </a></li>     
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right" ng-show="!isLoggedIn()">     
+      <li ><a href=""><span ng-click="login()">Login</span></a></li>      
     </ul>
   </div>
 </div>

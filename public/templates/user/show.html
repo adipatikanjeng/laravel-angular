@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="large-6 large-offset-3">
+    <form ng-submit="">
+      <fieldset class="radius">        
+        <div class="row">
+          <div class="form-group">
+          <label>First Name</label>
+            <input type="text" name="first_name" class="form-control" placeholder="First Name" ng-model="user.first_name" disabled/>
+          </div>            
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="text" name="last_name" class="form-control"  placeholder="Last Name" ng-model="user.last_name" disabled/>
+          </div>            
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="email" name="email" class="form-control"  placeholder="Email" ng-model="user.email" disabled/>
+          </div>            
+        </div>      
+        <div class="row large-12 columns">
+          <div class="large-3 columns">
+            <a href="#/user/lists"><button type="submit" class="btn btn-primary">Back</button></a>                    
+            <a href="#/user/update/{{user.id}}"><button type="submit" class="btn btn-primary">Update User</button></a>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

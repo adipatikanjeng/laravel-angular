@@ -89,6 +89,16 @@ app.config(function($routeProvider, $locationProvider, $stateProvider) {
 		}
 	});
 
+	$routeProvider.when('/user/show/:id', {
+		templateUrl: 'templates/user/show.html',
+		controller: 'UserController',
+		resolve: {
+			user: function(SelectService, $route) {
+				return SelectService.get('user/show', $route.current.params.id);
+			}
+		}
+	});
+
 	$routeProvider.when('/user/lists', {
 		templateUrl: 'templates/user/list.html',
 		controller: 'UserController',

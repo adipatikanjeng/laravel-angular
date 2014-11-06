@@ -1,29 +1,34 @@
 app.controller("ApplicationController", function($http, $scope, $location, FlashService, SessionService, AuthenticationService) {
-	 $scope.isVisible = 'false';
-	 if(SessionService.get('authenticated'))
-	 {
-	 	$scope.isVisible = 'true';
-	 }	 
-	 
+	$scope.title = SessionService.get('userName');
+	$http.get("user/show/" + SessionService.get('userId')).success(function(response) {
+		$scope.userName = response.first_name + " " + response.last_name;
+		$scope.userId = response.id;
 
+	});
 
-	 $scope.logout = function() {	 	
+	$scope.isLoggedIn = function() {
+		return AuthenticationService.isLoggedIn();
+	};
+
+	$scope.login = function() {
+		$location.path('/login');
+	};
+
+	$scope.logout = function() {
 		AuthenticationService.logout().success(function(response) {
 			FlashService.show(response.flash, 'success');
-			$location.path('/login');			
+			$location.path('/login');
 		});
 	};
 });
 
-app.controller("WelcomeController",  function($location, SessionService) {
+app.controller("WelcomeController", function($location, SessionService) {
 
-	 if (SessionService.get('authenticated'))
-	 	$location.path('/home');
+	if (SessionService.get('authenticated'))
+		$location.path('/home');
 });
 
-app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService, $routeParams, $rootScope) {
-	// if (SessionService.get('authenticated'))
-	// 	$location.path('/home');
+app.controller("LoginController", function($scope, $location, AuthenticationService, SessionService, $routeParams, $rootScope, FlashService) {
 
 	$scope.credentials = {
 		email: "",
@@ -33,11 +38,14 @@ app.controller("LoginController", function($scope, $location, AuthenticationServ
 
 	$scope.login = function() {
 		AuthenticationService.login($scope.credentials).success(function(results) {
+			SessionService.set('userId', results.user.id);
+			SessionService.set('role', results.role);
+			FlashService.show(results.flash, 'success');
 			//$rootScope.currentUser = results.first_name;
-			if ($routeParams.nextUrl) {				
+			if ($routeParams.nextUrl) {
 				$location.path($routeParams.nextUrl);
 				$location.url($location.path());
-			}else{
+			} else {
 				$location.path('/home');
 			}
 		});
@@ -78,7 +86,7 @@ app.controller("ResetPageController", function($http, $scope, $location, $routeP
 });
 
 
-app.controller("UserController", function($scope, $http, FlashService, user, $route, $filter, CrudService, $location, $routeParams, SelectService) {
+app.controller("UserController", function($scope, $http, FlashService, user, $route, $filter, CrudService, $location, $routeParams, SelectService, $window) {
 
 	$scope.create = function() {
 		CrudService.create('user/create', $scope.user).success(function(response) {
@@ -90,7 +98,13 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 	}
 	$scope.user = angular.copy(user.data);
 	$scope.update = function() {
-		CrudService.update('user/update', $routeParams.id, $scope.user);
+		CrudService.update('user/update', $routeParams.id, $scope.user).success(function(response) {
+			FlashService.show(response.flash, 'success');
+			$window.history.back();
+		}).error(function(response) {
+			FlashService.show(response.flash, 'warning');
+		});
+
 	}
 
 	$scope.users = angular.copy(user.data);
@@ -173,7 +187,7 @@ app.controller("UserController", function($scope, $http, FlashService, user, $ro
 
 
 app.controller("HomeController", function($http, $scope, $location, AuthenticationService, SessionService, $rootScope) {
-	$scope.title = SessionService.get('userId');
+
 	$scope.message = "Mouse Over these images to see a directive at work!";
 
 	$scope.logout = function() {
@@ -191,11 +205,11 @@ app.controller('ConfirmController', function($http, $routeParams, $location, Fla
 	});
 });
 
-app.controller("LogoutController", function($http, $scope, $location, AuthenticationService, SessionService) {	
+app.controller("LogoutController", function($http, $scope, $location, AuthenticationService, SessionService) {
 	AuthenticationService.logout().success(function() {
 
 		FlashService.show(response.flash, 'success');
 		$location.path('/login');
 	});
-	
+
 });

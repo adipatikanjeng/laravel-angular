@@ -42,8 +42,10 @@ class AuthController extends Controller {
 
 			if($this->model->whereEmail(Input::json('email'))->first()->activated == 1)
 			{
-
-				return Response::json($this->auth->user());
+				$model = $this->model->find($this->auth->user()->id);
+				$role = $model->roleUser->role->name;
+				
+				return Response::json(array('flash'=> Lang::get('auth.alerts.confirmation_login'), 'user'=> array('id' => $this->auth->user()->id, 'name' => $this->auth->user()->first_name." ".$this->auth->user()->last_name), 'role'=>$role ));
 
 			}else{
 

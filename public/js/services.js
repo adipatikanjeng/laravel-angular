@@ -3,10 +3,10 @@ app.factory("CrudService", function($http) {
 		create: function(url, data) {
 			return $http.post(url, data);
 		},
-		update: function(url, id, data) {			
+		update: function(url, id, data) {
 			return $http.post(url + '/' + id, data);
 		},
-		destroy: function(url, id) {			
+		destroy: function(url, id) {
 			return $http.post(url + '/' + id);
 		}
 	}
@@ -19,13 +19,13 @@ app.factory("SelectService", function($http) {
 				return result;
 			});
 		},
-		all: function(url){
+		all: function(url) {
 			return $http.get(url).then(function(result) {
 				return result;
 			});
 		}
 	}
-	
+
 });
 
 
@@ -161,9 +161,6 @@ app.factory("AuthenticationService", function($http, $sanitize, SessionService, 
 		login: function(credentials) {
 			var login = $http.post("auth/login", sanitizeCredentials(credentials));
 			login.success(cacheSession);
-			login.success(function(results){				
-				SessionService.set('userId', results.id);
-			});
 			login.success(FlashService.clear);
 			login.error(loginError);
 			return login;

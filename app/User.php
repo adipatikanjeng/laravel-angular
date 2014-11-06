@@ -34,4 +34,10 @@ class User extends Model implements UserContract, RemindableContract {
 		$this->remember_token  = $value;
 	}
 
+	public function roleUser()
+	{
+
+		return $this->hasOne('App\RoleUser', 'user_id');
+	}
+
 }
