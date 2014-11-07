@@ -77,14 +77,15 @@
 		<div id="view" ng-view></div>
 	</div>
 
-	<script src="js/angular.min.js"></script> 	
-	<script src="js/angular-route.min.js"></script>  	
+	<script src="js/angular.min.js"></script> 
+	<script src="bower_components/angular/angular.min.js"></script>		
 	<script src="js/underscore.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
 	<script src="js/directives.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/angular-ui-router.js"></script>	
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="bower_components/toaster/toaster.js"></script>
