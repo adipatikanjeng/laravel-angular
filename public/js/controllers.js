@@ -1,10 +1,7 @@
 app.controller("ApplicationController", function($http, $scope, $location, FlashService, SessionService, AuthenticationService) {
 	$scope.title = SessionService.get('userName');
-	$http.get("user/show/" + SessionService.get('userId')).success(function(response) {
-		$scope.userName = response.first_name + " " + response.last_name;
-		$scope.userId = response.id;
-
-	});
+	$scope.userName = SessionService.get('userName');
+	$scope.userId = SessionService.get('userId');
 
 	$scope.isLoggedIn = function() {
 		return AuthenticationService.isLoggedIn();
@@ -39,6 +36,7 @@ app.controller("LoginController", function($scope, $location, AuthenticationServ
 	$scope.login = function() {
 		AuthenticationService.login($scope.credentials).success(function(results) {
 			SessionService.set('userId', results.user.id);
+			SessionService.set('userName', results.user.name);
 			SessionService.set('role', results.role);
 			FlashService.show(results.flash, 'success');
 			//$rootScope.currentUser = results.first_name;
