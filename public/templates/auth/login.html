@@ -7,11 +7,16 @@
     <label for="inputPassword">Password</label>
     <input type="password" class="form-control" ng-model="credentials.password" placeholder="Password" required>
   </div>
-  <div class="checkbox">
-    <label><input type="checkbox" ng-model="credentials.remember"> Remember me</label>
+  <div class="form-group">   
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="credentials.remember"> Remember me</label>
+    </div>
   </div>
- 
-  <button type="submit" class="btn btn-primary">Login</button> <a href="#/reset">Forgot password</a>&nbsp<a href="#/register">Register</a>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+    <span><a href="#/reset">Forgot password</a></span>
+    <span class="pull-right"><a href="#/register">New Registration</a></span>
+  </div>  
 </form> 
 
 

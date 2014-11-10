@@ -38,22 +38,22 @@ app.config(function($routeProvider, $locationProvider, $stateProvider) {
 	});
 
 	$routeProvider.when('/register', {
-		templateUrl: 'templates/register.html',
+		templateUrl: 'templates/auth/register.html',
 		controller: 'RegisterController'
 	});
 
 	$routeProvider.when('/confirm/:code', {
-		templateUrl: 'templates/confirm.html',
+		templateUrl: 'templates/auth/confirm.html',
 		controller: 'ConfirmController'
 	});
 
 	$routeProvider.when('/reset', {
-		templateUrl: 'templates/reset.html',
+		templateUrl: 'templates/auth/reset.html',
 		controller: 'ResetController'
 	});
 
 	$routeProvider.when('/reset/:token', {
-		templateUrl: 'templates/resetPage.html',
+		templateUrl: 'templates/auth/resetPage.html',
 		controller: 'ResetPageController'
 	});
 

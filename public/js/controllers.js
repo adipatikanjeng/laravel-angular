@@ -3,6 +3,21 @@ app.controller("ApplicationController", function($http, $scope, $location, Flash
 	$scope.userName = SessionService.get('userName');
 	$scope.userId = SessionService.get('userId');
 
+	$scope.toasterOptions = {
+		'closeButton': false,
+		'debug': false,
+		'positionClass': 'toast-top-right',
+		'onclick': null,
+		'showDuration': '300',
+		'hideDuration': '1000',
+		'timeOut': '1000',
+		'extendedTimeOut': '1000',
+		'showEasing': 'swing',
+		'hideEasing': 'linear',
+		'showMethod': 'fadeIn',
+		'hideMethod': 'fadeOut'
+	};
+
 	$scope.isLoggedIn = function() {
 		return AuthenticationService.isLoggedIn();
 	};
