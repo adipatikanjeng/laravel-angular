@@ -16,8 +16,6 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->model = new User;
 
-		// $this->beforeFilter('csrf', ['on' => ['post']]);
-		// $this->beforeFilter('guest', ['except' => ['getLogout']]);
 	}
 
 	public function status() {
@@ -40,7 +38,7 @@ class AuthController extends Controller {
 		if($this->auth->attempt(array('email' => Input::json('email'), 'password' => Input::json('password')), $remember))
 		{
 
-			if($this->model->whereEmail(Input::json('email'))->first()->activated == 1)
+			if($this->model->whereEmail(Input::json('email'))->first()->activated)
 			{
 				$model = $this->model->find($this->auth->user()->id);
 				$role = $model->roleUser->role->name;
