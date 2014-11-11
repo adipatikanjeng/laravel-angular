@@ -5,7 +5,7 @@
 	<title>Teewool.com</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="bower_components/toaster/toaster.css">
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">	
 </head>
 <body ng-controller="ApplicationController">
 	<nav class="navbar navbar-default" role="navigation">
@@ -39,21 +39,23 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right" ng-show="!isLoggedIn()">     
 					<li ><a href=""><span ng-click="login()">Login</span></a></li>      
-				</ul>
+				</ul>			
 				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search" name="q">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+						</div>
 					</div>
-					<button type="submit" class="btn btn-default">Search</button>
-				</form>				
+				</form>		
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>	
 
 	<div class="container">  
 		<toaster-container toaster-options="{{toasterOptions}}">{{ flash }}
-</toaster-container>
-<div id="view" ng-view></div>
+	</toaster-container>
+	<div id="view" ng-view></div>
 </div>
 
 
