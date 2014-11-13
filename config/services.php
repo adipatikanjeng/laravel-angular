@@ -27,12 +27,10 @@ return [
 		'model'  => 'User',
 		'secret' => '',
 	],
-
-    'github' => [
-        'client_id' => getenv('GITHUB_CLIENT_ID'),
-        'client_secret' => getenv('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/laragul/public/#/login'
-
-    ]
+	'github' => [
+		'client_id' => getenv('GITHUB_CLIENT_ID'),
+		'client_secret' => getenv('GITHUB_CLIENT_SECRET'),
+		'redirect' => 'http://localhost/laragul/public/#/login'
+	]
 
 ];

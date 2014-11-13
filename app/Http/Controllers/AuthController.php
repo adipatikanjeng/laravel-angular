@@ -17,19 +17,7 @@ class AuthController extends Controller {
 		$this->model = new User;
 
 	}
-
-	public function status() {
-		return Response::json(Auth::check());
-	}
-
-	public function secrets() {
-		if(Auth::check()) {
-			return 'You are logged in, here are secrets.';
-		} else {
-			return 'You aint logged in, no secrets for you.';
-		}
-	}
-
+	
 	public function login()
 	{
 
